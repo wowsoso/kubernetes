@@ -30,11 +30,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
 	"github.com/go-openapi/spec"
 	"github.com/golang/glog"
 	"github.com/spf13/cobra"
-
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
@@ -94,10 +92,11 @@ import (
 	"k8s.io/kubernetes/pkg/version"
 	"k8s.io/kubernetes/pkg/version/verflag"
 	"k8s.io/kubernetes/plugin/pkg/auth/authenticator/token/bootstrap"
-
 	utilflag "k8s.io/kubernetes/pkg/util/flag"
-	_ "k8s.io/kubernetes/pkg/util/reflector/prometheus" // for reflector metric registration
-	_ "k8s.io/kubernetes/pkg/util/workqueue/prometheus" // for workqueue metric registration
+	_ "k8s.io/kubernetes/pkg/util/reflector/prometheus"
+	_ "k8s.io/kubernetes/pkg/util/workqueue/prometheus"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 const etcdRetryLimit = 60
@@ -121,7 +120,7 @@ cluster's shared state through which all other components interact.`,
 			if err != nil {
 				return err
 			}
-
+			spew.Dump("debug: ", completedOptions)
 			// validate options
 			if errs := completedOptions.Validate(); len(errs) != 0 {
 				return utilerrors.NewAggregate(errs)

@@ -36,6 +36,7 @@ import (
 	_ "k8s.io/kubernetes/pkg/features"
 
 	"github.com/spf13/pflag"
+	"github.com/davecgh/go-spew/spew"
 )
 
 // ServerRunOptions runs a kubernetes api server.
@@ -119,7 +120,7 @@ func NewServerRunOptions() *ServerRunOptions {
 
 	// Overwrite the default for storage data format.
 	s.Etcd.DefaultStorageMediaType = "application/vnd.kubernetes.protobuf"
-
+	spew.Dump("debug: ", s)
 	return &s
 }
 
